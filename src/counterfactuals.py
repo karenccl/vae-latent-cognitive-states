@@ -164,11 +164,13 @@ def main():
         for j, nm in enumerate(("engaged", "lapsed")):
             g = df[(df.source == "simulator, state clamped") & (df.condition == nm)][key].item()
             v = df[(df.source == "VAE decoded") & (df.condition == f"z{dim} -> {nm} mean")][key].item()
-            ax.bar(j - 0.2, g, 0.4, color=cols[nm], label="simulator" if j == 0 else None)
-            ax.bar(j + 0.2, v, 0.4, color=cols[nm], alpha=0.4, hatch="//",
-                   label="VAE decoded" if j == 0 else None)
+            ax.bar(j - 0.2, g, 0.4, color=cols[nm])
+            ax.bar(j + 0.2, v, 0.4, color=cols[nm], alpha=0.4, hatch="//")
         ax.set_xticks(x); ax.set_xticklabels(["engaged", "lapsed"]); ax.set_title(ttl)
-        ax.legend(frameon=False, fontsize=7)
+        from matplotlib.patches import Patch
+        ax.legend(handles=[Patch(facecolor="grey", label="simulator (solid)"),
+                           Patch(facecolor="grey", alpha=0.4, hatch="//", label="VAE decoded (hatched)")],
+                  frameon=False, fontsize=7)
     fig.suptitle(f"Latent intervention on z{dim} ({tag}): model counterfactual, not causal inference", fontsize=9)
     fig.tight_layout(); fig.savefig(ROOT / "figures" / "fig5_counterfactuals.png", dpi=200)
 

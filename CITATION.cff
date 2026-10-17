@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "VAE recovery of latent cognitive states and counterfactual simulation"
+type: software
+authors:
+  - family-names: "Chan"
+    given-names: "Karen"
+repository-code: "https://github.com/karenccl/vae-latent-cognitive-states"
+license: MIT
+date-released: "2026-10-17"
+abstract: "Simulation study comparing a windowed GRU-VAE with hidden Markov model baselines for recovering latent cognitive states from choice and reaction-time sequences, with posterior-collapse diagnostics and latent-intervention counterfactuals."
+keywords:
+  - variational autoencoder
+  - hidden Markov model
+  - latent cognitive states
+  - counterfactual simulation

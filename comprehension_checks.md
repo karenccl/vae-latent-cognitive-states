@@ -1,0 +1,13 @@
+# Comprehension checks
+
+1. **Why is the HMM baseline non-negotiable?** It shows whether the VAE learns more than a simple, correctly structured probabilistic model. Without it an ARI of 0.30 is uninterpretable. In this project it was decisive: the VAE beat the protocol Gaussian HMM (0.30 vs 0.16) but lost to a Bernoulli-Gaussian HMM (0.47), and the baseline also exposed that the first HMM was mis-specified.
+
+2. **What is posterior collapse and how is it detected here?** The approximate posterior equals the prior in some or all latent dimensions, so the latent carries no information about the input. Detected by per-dimension posterior variance near 1, KL near 0, and single-dimension probes at the majority-class rate. With the specified loss, beta = 1 and 5 collapsed completely (total KL < 1e-4 nats); beta = 0.1 kept three active dimensions. Collapse is graded: near-zero-KL latents can still be linearly decodable, and K-means is scale-invariant, so ARI alone can mislead.
+
+3. **Why is a latent intervention not a causal intervention?** It edits a learned representation and reads out the trained decoder ("what would the model decode under a different latent value?"). It does not manipulate the process that generated the behaviour, and the decoder reflects the training distribution and its inductive biases. The comparison to the simulator is informative only because the simulator's ground truth is known; on real data it would be descriptive.
+
+4. **If VAE recovery is worse than the HMM, what does that suggest?** When the generating process is discrete and Markov, a continuous unconstrained latent is a less efficient fit: it learned an ordered severity axis rather than three clusters, encodes windows independently, and has no mechanism that favours clustering. That is a reason to prefer a discrete-state model for this simulator, not a general verdict on continuous latents (which may suit graded or unknown state structure).
+
+5. **Why split by subject rather than by trial?** Trials within a subject are autocorrelated and share subject-specific structure (and here, hidden-state dynamics). Splitting by trial or window would put neighbouring, highly dependent observations in both training and test sets, inflating performance. Subject-level splits test generalisation to new individuals.
+
+6. **Why is Hungarian matching necessary?** Cluster and HMM state indices are arbitrary permutations of the true labels. Label-based metrics (macro-F1, confusion, transition error) need the optimal one-to-one assignment between inferred and true labels first; ARI and NMI are permutation-invariant but matching is still needed for the label-dependent measures.
