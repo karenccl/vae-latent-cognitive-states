@@ -156,7 +156,14 @@ def main():
                      color=cols[nm], lw=2, label=f"simulator: {nm}")
         axes[0].hist(decoded[f"z{dim} -> {nm} mean"][..., 1].ravel(), bins, density=True,
                      color=cols[nm], alpha=0.35, label=f"VAE z{dim}->{nm}")
-    axes[0].set_xlabel("log-RT"); axes[0].set_ylabel("density"); axes[0].legend(frameon=False, fontsize=7)
+    from matplotlib.lines import Line2D
+    from matplotlib.patches import Patch
+    axes[0].set_xlabel("log-RT"); axes[0].set_ylabel("density")
+    axes[0].legend(handles=[Line2D([0], [0], color="grey", lw=2, label="simulator (outline)"),
+                            Patch(facecolor="grey", alpha=0.5, label="VAE decoded (filled)")],
+                   frameon=False, fontsize=7)
+    axes[0].text(0.98, 0.62, "colour = state:\nblue = engaged, red = lapsed", transform=axes[0].transAxes,
+                 ha="right", va="top", fontsize=7, color="dimgrey")
     axes[0].set_title("Decoded vs ground-truth RT")
     x = np.arange(2)
     for ax, key, ttl in ((axes[1], "mean_log_rt", "Mean log-RT"),
@@ -167,7 +174,6 @@ def main():
             ax.bar(j - 0.2, g, 0.4, color=cols[nm])
             ax.bar(j + 0.2, v, 0.4, color=cols[nm], alpha=0.4, hatch="//")
         ax.set_xticks(x); ax.set_xticklabels(["engaged", "lapsed"]); ax.set_title(ttl)
-        from matplotlib.patches import Patch
         ax.legend(handles=[Patch(facecolor="grey", label="simulator (solid)"),
                            Patch(facecolor="grey", alpha=0.4, hatch="//", label="VAE decoded (hatched)")],
                   frameon=False, fontsize=7)

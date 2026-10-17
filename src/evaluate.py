@@ -181,7 +181,9 @@ def main():
                label=c.replace("test_", "").upper())
     ax.set_xticks(range(len(summary))); ax.set_xticklabels(labels, fontsize=8)
     ax.set_ylabel("Test-set score"); ax.legend(frameon=False)
-    ax.set_title(f"State recovery on held-out subjects (window level); shuffled-label control: ARI {ctl['ari']:.3f}, NMI {ctl['nmi']:.3f}", fontsize=10)
+    ax.set_title("State recovery on held-out subjects (window level)")
+    fig.text(0.99, 0.005, f"Shuffled-label control: ARI {ctl['ari']:.3f}, NMI {ctl['nmi']:.3f}",
+             ha="right", va="bottom", fontsize=7, color="dimgrey")
     fig.tight_layout(); fig.savefig(fig_dir / "fig2_recovery_comparison.png", dpi=200); plt.close(fig)
 
     mu_te = runs[primary]["mu"]["test"]
