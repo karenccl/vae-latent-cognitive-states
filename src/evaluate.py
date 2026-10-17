@@ -172,17 +172,16 @@ def main():
     cols = ["test_ari", "test_nmi", "test_macro_f1"]
     short = {"HMM (Gaussian, spec)": "HMM\nGaussian\n(spec)",
              "HMM (Bernoulli-Gaussian)": "HMM\nBernoulli-\nGaussian"}
-    labels = [short.get(r.model, f"VAE {r.recon}\nbeta={r.beta:g}")
+    labels = [short[r.model] if r.model in short else f"VAE {r.recon}\nbeta={r.beta:g}"
               for r in summary.itertuples()]
     fig, ax = plt.subplots(figsize=(11, 4))
     w = 0.27
     for i, c in enumerate(cols):
         ax.bar(np.arange(len(summary)) + (i - 1) * w, summary[c].astype(float), w,
                label=c.replace("test_", "").upper())
-    ax.axhline(ctl["ari"], color="grey", ls=":", lw=1.2, label="shuffled-label control (ARI)")
     ax.set_xticks(range(len(summary))); ax.set_xticklabels(labels, fontsize=8)
     ax.set_ylabel("Test-set score"); ax.legend(frameon=False)
-    ax.set_title("State recovery on held-out subjects (window level)")
+    ax.set_title(f"State recovery on held-out subjects (window level); shuffled-label control: ARI {ctl['ari']:.3f}, NMI {ctl['nmi']:.3f}", fontsize=10)
     fig.tight_layout(); fig.savefig(fig_dir / "fig2_recovery_comparison.png", dpi=200); plt.close(fig)
 
     mu_te = runs[primary]["mu"]["test"]
