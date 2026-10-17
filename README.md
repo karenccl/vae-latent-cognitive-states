@@ -60,4 +60,3 @@ python seed_robustness.py             # optional: primary config under 4 other m
 - "Posterior collapse" is a continuum: at KL ~ 1e-4 nats latents can still be linearly decodable (see `collapse_diagnostics.csv`).
 - Window labels are majority votes, so mixed windows are inherently ambiguous; this caps all recovery metrics.
 - Bootstrap CIs in the counterfactual file are over test windows of a deterministic decoder and understate uncertainty.
-- Optional real-data (Project 3) and Project 2 extensions were not run.
