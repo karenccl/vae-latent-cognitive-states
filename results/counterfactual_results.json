@@ -1,0 +1,34 @@
+{
+  "model": "vae_mean_beta0.1",
+  "state_mean_z": {
+    "0": -0.42770370841026306,
+    "2": 1.220750331878662
+  },
+  "wasserstein_rt": {
+    "z1 -> lapsed mean vs lapsed truth": 0.3924339829597289,
+    "z1 -> engaged mean vs engaged truth": 0.19200295640931572,
+    "all z -> lapsed mean vs lapsed truth": 0.4148197455230105,
+    "all z -> engaged mean vs engaged truth": 0.2016617562531039,
+    "observed (no intervention) vs lapsed truth": 0.5773030201683522,
+    "observed (no intervention) vs engaged truth": 0.15040842527422024
+  },
+  "direction": {
+    "intervention_dim": 1,
+    "decoded_rt_shift_lapsed_minus_engaged": 0.2968776524066925,
+    "decoded_rt_shift_95ci_over_windows": [
+      0.2966195344924927,
+      0.29713690280914307
+    ],
+    "decoded_correct_shift_lapsed_minus_engaged": -0.12352824956178665,
+    "decoded_correct_shift_95ci_over_windows": [
+      -0.12367624044418335,
+      -0.12338971346616745
+    ],
+    "simulator_rt_shift": 0.7003944516181946,
+    "simulator_correct_shift": -0.3540000021457672,
+    "rt_longer_for_lapsed": true,
+    "correct_lower_for_lapsed": true,
+    "magnitude_ratio_rt": 0.42387208342552185,
+    "magnitude_ratio_correct": 0.3489498496055603
+  }
+}

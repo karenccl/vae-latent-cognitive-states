@@ -1,0 +1,9 @@
+{
+  "primary_by_val_ari": "vae_mean_beta0.1",
+  "spec_loss_best_by_val_ari": "vae_mean_beta0.1",
+  "shuffled_control_test": {
+    "ari": 0.0005512521534012074,
+    "nmi": 0.0023975922036260054,
+    "macro_f1": 0.3354955332826012
+  }
+}
